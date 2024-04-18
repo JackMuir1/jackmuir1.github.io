@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timer with Passcode</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    #timer {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+</style>
+</head>
+<body>
+<div id="start">
+    Set Time (in seconds): <input type="number" name="" id="timerlength">
+    <button id="startButton">Start</button>
+</div>
+
+<div id="game">
+</div>
+<div id="result">
+</div>
+
+<script>
+    
+    const startButton = document.getElementById('startButton');
+    const timeset = document.getElementById('timerlength');
+
+
+    const startmenu = document.getElementById('start');
+    const gamemenu = document.getElementById('game');
+    const resultmenu = document.getElementById('result');
+
+    let timerDisplay = null;
+    let submitButton = null;
+    let passcodeInput = null;
+
+    let timerInterval;
+    let timeInSeconds = 20;
+
+    function startTimer() {
+        timeInSeconds = parseInt(timeset.value) + 1;
+        timerInterval = setInterval(updateTimer, 1000);
+        startButton.disabled = true;
+        startmenu.innerHTML = "";
+        gamemenu.innerHTML = "<div id='timer'>GO!</div><input type='text' id='passcodeInput' placeholder='Enter 4-digit passcode'><button id='submitButton'>Submit</button>"
+        submitButton = document.getElementById('submitButton');
+        submitButton.addEventListener('click', submitCode);
+        timerDisplay = document.getElementById('timer');
+        passcodeInput = document.getElementById('passcodeInput');
+    }
+
+    function submitCode() {
+        const passcode = passcodeInput.value.trim();
+        if (passcode.length === 4) {
+            if (passcode === '7216') { // Change this to your desired passcode
+                stopTimer();
+                win();
+            } else {
+                passcodeInput.value = '';
+                alert('Passcode incorrect. Try again.');
+            }
+        }
+        else
+        {
+            alert('Passcode must be 4 digits');
+        }
+    }
+
+    function win()
+    {
+        gamemenu.innerHTML = "";
+        resultmenu.innerHTML = "<h1>YOU WIN!</h1>";
+    }
+    function lose()
+    {
+        gamemenu.innerHTML = "";
+        resultmenu.innerHTML = "<h1>YOU LOSE!</h1>";
+    }
+
+    function updateTimer() {
+        timeInSeconds--;
+
+        if(timeInSeconds <= 0)
+        {
+            stopTimer();
+            lose();
+        }
+
+        const minutes = Math.floor(timeInSeconds / 60);
+        const seconds = timeInSeconds % 60;
+        timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function stopTimer() {
+        clearInterval(timerInterval);
+        startButton.disabled = false;
+        timeInSeconds = 0;
+        timerDisplay.textContent = '00:00';
+    }
+
+    startButton.addEventListener('click', startTimer);
+</script>
+
+</body>
+</html>
