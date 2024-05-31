@@ -39,7 +39,7 @@ section::before
   position: absolute;
   width: 100%;
   height: 100%;
-  background: linear-gradient(#000,#0f0,#000);
+  background: linear-gradient(#000,#43A5BE,#000);
   animation: animate 5s linear infinite;
 }
 @keyframes animate 
@@ -65,7 +65,7 @@ section span
 }
 section span:hover 
 {
-  background: #0f0;
+  background: #43A5BE;
   transition: 0s;
 }
 
@@ -95,7 +95,7 @@ section .signin .content
 h2 
 {
   font-size: 6em;
-  color: #0f0;
+  color: #43A5BE;
   text-transform: uppercase;
 }
 section .signin .content .form 
@@ -154,7 +154,7 @@ section .signin .content .form .inputBox i
 }
 .signin .content .form .links a:nth-child(2)
 {
-  color: #0f0;
+  color: #43A5BE;
   font-weight: 600;
 }
 input
@@ -172,7 +172,7 @@ button{
   padding: 10px 20px; /* Add padding inside the button */
   border: none; /* Remove the default button border */
   border-radius: 25px; /* Add rounded corners to the button */
-  background-color: #0f0; /* Set background color of the button */
+  background-color: #43A5BE; /* Set background color of the button */
   color: #000; /* Set text color of the button */
   font-size: 16px; /* Set font size */
   cursor: pointer; /* Set cursor to pointer on hover */
@@ -203,6 +203,7 @@ button:hover {
 <body>
 <div id="start">
     <h2> Time (in seconds): </h2><input type="number" name="" id="timerlength">
+    <h2> Passcode: </h2><input type="password" name="" id="passSet" value="7216">
     <button id="startButton">Start</button>
 </div>
 
@@ -215,6 +216,7 @@ button:hover {
     
     const startButton = document.getElementById('startButton');
     const timeset = document.getElementById('timerlength');
+    const Passset = document.getElementById('passSet');
 
 
     const startmenu = document.getElementById('start');
@@ -228,12 +230,15 @@ button:hover {
     let timerInterval;
     let timeInSeconds = 20;
 
+    let pass;
+
     function startTimer() {
         timeInSeconds = parseInt(timeset.value) + 1;
+        pass = Passset.value;
         timerInterval = setInterval(updateTimer, 1000);
         startButton.disabled = true;
         startmenu.innerHTML = "";
-        gamemenu.innerHTML = "<center><h2><div id='timer'>GO!</div></h2></center><center><input type='text' id='passcodeInput' placeholder='4-digit passcode'><button id='submitButton'>Submit</button></center><br/><img src='https://i.pinimg.com/originals/35/58/0d/35580d64b9b883fd0e0678595fc2aefd.gif'>"
+        gamemenu.innerHTML = "<center><h2><div id='timer'>GO!</div></h2></center><center><input type='password' id='passcodeInput' placeholder='4-digit passcode'><button id='submitButton'>Submit</button></center><br/><img src='https://i.pinimg.com/originals/35/58/0d/35580d64b9b883fd0e0678595fc2aefd.gif'>"
         submitButton = document.getElementById('submitButton');
         submitButton.addEventListener('click', submitCode);
         timerDisplay = document.getElementById('timer');
@@ -243,7 +248,7 @@ button:hover {
     function submitCode() {
         const passcode = passcodeInput.value.trim();
         if (passcode.length === 4) {
-            if (passcode === '7216') { // Change this to your desired passcode
+            if (passcode === pass) { // Change this to your desired passcode
                 stopTimer();
                 win();
             } else {
@@ -260,12 +265,12 @@ button:hover {
     function win()
     {
         gamemenu.innerHTML = "";
-        resultmenu.innerHTML = "<center><h2>YOU WIN!</h2><img src='https://live.staticflickr.com/3199/2692159192_3413847f3e_b.jpg' width='66%'></center>";
+        resultmenu.innerHTML = "<center><img src='victory.png' width='66%'></center>";
     }
     function lose()
     {
         gamemenu.innerHTML = "";
-        resultmenu.innerHTML = "<center><h2>Time's Up!</h2><img src='https://cdn.openart.ai/uploads/image_BruaAK7C_1713472245814_raw.jpg' width='66%'></center>";
+        resultmenu.innerHTML = "<center><h2>Time's Up</h2><video width='640' height='360' controls autoplay><source src='explosion.mp4' type='video/mp4'>Your browser does not support the video tag.</video></center>";
     }
 
     function updateTimer() {
