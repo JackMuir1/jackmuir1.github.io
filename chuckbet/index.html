@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chuckbet Minesweeper</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="header">
+      <!-- Logo image (place your text PNG at ./logo.png) -->
+      <img id="logo" src="logo.png" alt="Purple Mines logo">
+      <h1 class="visually-hidden">Chuckbet</h1>
+    </header>
+
+    <!-- Large centered total balance -->
+    <div class="balance-large">
+      <div class="balance-label">Total</div>
+      <div id="displayBalanceLarge" class="balance-amount">—</div>
+    </div>
+
+    <section class="controls">
+      <div class="control-row">
+        <label for="bombCount">Bombs</label>
+        <select id="bombCount"></select>
+      </div>
+      <div class="control-row">
+        <label for="wager">Wager</label>
+        <input id="wager" type="number" min="0.01" step="0.01" inputmode="decimal">
+      </div>
+      <div class="buttons">
+        <button id="startBtn" class="btn primary">Start</button>
+        <button id="cashoutBtn" class="btn" disabled>Cash Out</button>
+      </div>
+    </section>
+
+    <section class="scoreboard">
+      <div><strong>Wager:</strong> <span id="displayWager">—</span></div>
+      <div><strong>Multiplier:</strong> <span id="displayMultiplier">1.00x</span></div>
+      <div><strong>Potential:</strong> <span id="displayWinnings">—</span></div>
+    </section>
+
+    <section class="board-wrap">
+      <div id="board" class="board" aria-label="Game board"></div>
+    </section>
+
+    <footer class="footer small">Tap tiles to reveal. Cash out anytime to lock winnings.</footer>
+  </main>
+
+  <!-- Creator code (bottom of page) -->
+  <div class="creator-code">
+    <form id="creatorCodeForm" class="creator-form">
+      <label for="creatorCode" class="creator-label">Enter creator code</label>
+      <div class="creator-row">
+        <input id="creatorCode" name="creatorCode" type="text" placeholder="Enter code" autocomplete="off">
+        <button id="creatorCodeSubmit" class="btn">Submit</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Intro modal (shown once) -->
+  <div id="introModal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <h2>Present Locked!</h2>
+      <p>In order to open your present, you must make $10 on CHUCKBET. You have been given $3 to start with. Good luck!</p>
+      <ul>
+        <li>Select number of bombs (1–24) and your wager</li>
+        <li>Press start to begin picking bombs</li>
+        <li>Cash out anytime to lock winnings</li>
+      </ul>
+      <div class="modal-actions">
+        <label><input id="dontShow" type="checkbox"> Don't show again</label>
+        <button id="closeIntro" class="btn primary">Let's Go</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Message modal for cashout / loss (on-screen popup) -->
+  <div id="msgModal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <p id="msgText"></p>
+      <div class="modal-actions">
+        <button id="msgClose" class="btn primary">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
