@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Lifts"><meta name="theme-color" content="#d9480f"><link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%23d9480f%27/%3E%3Ctext x=%2750%27 y=%2772%27 font-size=%2765%27 text-anchor=%27middle%27%3E%F0%9F%8F%8B%3C/text%3E%3C/svg%3E"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lift Tracker</title>
+<style>
+:root{--bg:#f6f5f2;--card:#fff;--ink:#1c1c1a;--mut:#6b6a66;--acc:#d9480f;--ln:#e4e2dc;--ok:#2b8a3e;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161615;--card:#222221;--ink:#f1efe9;--mut:#9c9a93;--acc:#ff8c5a;--ln:#383835;--ok:#69db7c;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#161615;--card:#222221;--ink:#f1efe9;--mut:#9c9a93;--acc:#ff8c5a;--ln:#383835;--ok:#69db7c;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:560px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:28px;margin:8px 0 4px}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin:26px 0 8px}
+.sub{color:var(--mut);margin:0}
+a.row{display:flex;justify-content:space-between;align-items:center;background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:16px;margin-bottom:8px;color:inherit;text-decoration:none;font-weight:600}
+a.row span{color:var(--acc);font-variant-numeric:tabular-nums}
+.back{display:inline-block;color:var(--acc);text-decoration:none;font-weight:600;padding:8px 0}
+.tag{color:var(--mut);font-size:13px;text-transform:uppercase;letter-spacing:.08em}
+.big{display:flex;align-items:baseline;justify-content:center;gap:8px;margin:18px 0 6px}
+.big input{width:4.2ch;font:800 clamp(88px,32vw,150px)/1 system-ui,sans-serif;text-align:center;border:0;background:transparent;color:var(--ink);padding:0;outline:none;-moz-appearance:textfield;font-variant-numeric:tabular-nums}
+.big input::-webkit-inner-spin-button,.big input::-webkit-outer-spin-button{-webkit-appearance:none}
+.big small{font-size:22px;color:var(--mut);font-weight:600}
+.steps{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+button{font:700 22px system-ui,sans-serif;padding:16px;border-radius:14px;border:1px solid var(--ln);background:var(--card);color:var(--ink);cursor:pointer}
+button.p{background:var(--acc);border-color:var(--acc);color:#fff}
+button{touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;-webkit-appearance:none;appearance:none;min-height:64px}
+button:active{transform:scale(.98)}
+.big input,textarea{-webkit-appearance:none;appearance:none}
+.hint{text-align:center;color:var(--mut);margin:12px 0 0;min-height:1.4em}
+textarea{width:100%;background:var(--card);color:var(--ink);border:1px solid var(--ln);border-radius:12px;padding:12px;font:inherit;resize:none}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--ln);border-radius:12px;overflow:hidden}
+th,td{text-align:left;padding:12px;border-bottom:1px solid var(--ln);font-variant-numeric:tabular-nums}
+th{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}
+tr:last-child td{border-bottom:0}
+.up{color:var(--ok)}.dn{color:var(--acc)}
+.ghost{font-size:15px;padding:10px 14px;margin-top:24px;width:100%}
+</style></head><body><main id="app"></main>
+<script>
+const DAYS=[
+["Chest",[["Chest Fly",100,"Lie back or sit and arc the handles together in a wide hug, squeezing the chest at the top.\nKeep a soft bend in the elbows and control the stretch on the way back."],
+["Incline Bench",45,"Press from the upper chest on a 30-45° bench, lowering to just above the collarbone.\nKeep shoulder blades pinned back and feet planted."],
+["Chest Press Machine",110,"Adjust the seat so handles line up with mid-chest, then press out without locking elbows.\nPause briefly and lower slowly for a full stretch."]]],
+["Tris",[["Tricep Pulldown",45,"Pin elbows to your sides and push the bar or rope down until arms are straight.\nOnly the forearms move; resist the weight on the way up."]]],
+["Back",[["Lat Pulldown Machine",140,"Pull the bar to your upper chest, driving elbows down and back.\nLean back slightly and avoid swinging or shrugging."],
+["Bench Row",45,"Chest supported on the bench, row the weight toward your hips.\nSqueeze shoulder blades together at the top, then lower with control."],
+["Cable Pulldown",45,"Pull the handle down and in, leading with the elbows.\nKeep ribs down and pause at the bottom for a strong lat squeeze."]]],
+["Bis",[["Dumbbell Curl",30,"Curl with palms up, elbows fixed at your sides.\nLift without swinging and lower over about three seconds."]]],
+["Legs",[["Hip Thrust",30,"Upper back on a bench, drive through the heels until hips are fully extended.\nTuck the chin, squeeze the glutes at the top and avoid arching the lower back."],
+["RDL",25,"Soft knees, push hips straight back and slide the weight down your thighs.\nKeep a flat back and stand up by squeezing the glutes."],
+["Goblet Squat",50,"Hold the weight at your chest and squat between your knees with an upright torso.\nHeels flat, knees tracking over toes."],
+["Leg Curl",110,"Curl the pad toward your glutes without lifting the hips.\nPause at the top and lower slowly for the full range."]]]];
+const EX=[];DAYS.forEach(([d,l])=>l.forEach(([n,w,t])=>EX.push({id:n.toLowerCase().replace(/[^a-z0-9]+/g,"-"),n,w,t,d})));
+const today=()=>{const x=new Date();return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0")};
+let S={w:{},log:{},notes:{}},ref=null,dl=null;
+EX.forEach(e=>{S.w[e.id]=e.w;S.log[e.id]=[{d:today(),w:e.w}]});
+try{const l=JSON.parse(localStorage.getItem("lift")||"null");if(l)S=Object.assign(S,l)}catch(e){}
+let saveT,touched=false;
+function save(){touched=true;S.ts=Date.now();try{localStorage.setItem("lift",JSON.stringify(S))}catch(e){}
+ clearTimeout(saveT);saveT=setTimeout(()=>{if(ref)ref.set(S).catch(()=>{})},300)}
+function fmt(d){const[y,m,dd]=d.split("-");return new Date(y,m-1,dd).toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"})}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function home(){let h='<h1>Lift Tracker</h1><p class="sub">Tap an exercise. Beat last time.</p>';
+ DAYS.forEach(([d,l])=>{h+='<h2>'+d+'</h2>';l.forEach(([n])=>{const id=n.toLowerCase().replace(/[^a-z0-9]+/g,"-");h+='<a class="row" href="#'+id+'">'+esc(n)+'<span>'+S.w[id]+' lb</span></a>'});});
+ h+='<button class="ghost" id="exp">Export log as CSV</button>';app.innerHTML=h;
+ document.getElementById("exp").onclick=exportCsv}
+function exportCsv(){let c="Exercise,Date,Weight (lbs)\n";EX.forEach(e=>(S.log[e.id]||[]).forEach(r=>c+='"'+e.n+'",'+r.d+","+r.w+"\n"));
+ if(dl)dl.save({filename:"lift-log.csv",data:c}).catch(()=>{});else{const a=document.createElement("a");a.href="data:text/csv,"+encodeURIComponent(c);a.download="lift-log.csv";a.click()}}
+function setW(e,v){v=Math.max(0,Math.round(v*2)/2);const cur=S.w[e.id];if(v===cur||isNaN(v))return false;
+ S.w[e.id]=v;(S.log[e.id]=S.log[e.id]||[]).push({d:today(),w:v});save();return true}
+function rowsHtml(e){const lg=S.log[e.id]||[];let rows="";for(let i=lg.length-1;i>=0;i--){const p=i>0?lg[i].w-lg[i-1].w:0;
+  rows+='<tr><td>'+fmt(lg[i].d)+'</td><td><b>'+lg[i].w+'</b> lb</td><td class="'+(p>0?"up":p<0?"dn":"")+'">'+(i===0?"start":(p>0?"+":"")+p)+'</td></tr>'}return rows}
+function hintTxt(e){return 'Overload goal: try '+(S.w[e.id]+5)+' lb next session.'}
+function view(e){const rows=rowsHtml(e);
+ app.innerHTML='<a class="back" href="#">← All exercises</a><div class="tag">'+e.d+' day</div><h1>'+esc(e.n)+'</h1>'
+ +'<div class="big"><input id="w" type="number" inputmode="decimal" step="0.5" value="'+S.w[e.id]+'" aria-label="Weight in pounds"><small>lb</small></div>'
+ +'<div class="steps"><button type="button" id="m">− 5</button><button type="button" id="p" class="p">+ 5</button></div>'
+ +'<p class="hint" id="hint">'+hintTxt(e)+'</p>'
+ +'<h2>Notes</h2><textarea id="nt" rows="3">'+esc(S.notes[e.id]??e.t)+'</textarea>'
+ +'<h2>History</h2><div class="tw"><table><thead><tr><th>Date</th><th>Weight</th><th>Change</th></tr></thead><tbody id="tb">'+rows+'</tbody></table></div>';
+ const inp=document.getElementById("w");
+ const go=v=>{try{setW(e,v);inp.value=S.w[e.id];document.getElementById("hint").textContent=hintTxt(e);document.getElementById("tb").innerHTML=rowsHtml(e)}catch(x){document.getElementById("hint").textContent="Error: "+x.message}};
+ document.getElementById("m").onclick=()=>go(S.w[e.id]-5);
+ document.getElementById("p").onclick=()=>go(S.w[e.id]+5);
+ inp.onchange=()=>go(parseFloat(inp.value));
+ inp.onkeydown=k=>{if(k.key==="Enter")inp.blur()};
+ inp.onfocus=()=>setTimeout(()=>{try{inp.select()}catch(x){}},0);
+ document.getElementById("nt").oninput=ev=>{S.notes[e.id]=ev.target.value;save()}}
+function route(){const id=location.hash.slice(1);const e=EX.find(x=>x.id===id);e?view(e):home();window.scrollTo(0,0)}
+window.addEventListener("hashchange",route);route();
+document.addEventListener("pointerdown",ev=>{const a=document.activeElement;if(a&&(a.tagName==="INPUT"||a.tagName==="TEXTAREA")&&!ev.target.closest("input,textarea"))a.blur()},true);
+</script></body></html>
