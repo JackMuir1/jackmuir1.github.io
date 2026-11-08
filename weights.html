@@ -1,12 +1,11 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Lifts"><meta name="theme-color" content="#d9480f"><link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%23d9480f%27/%3E%3Ctext x=%2750%27 y=%2772%27 font-size=%2765%27 text-anchor=%27middle%27%3E%F0%9F%8F%8B%3C/text%3E%3C/svg%3E"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Lifts"><meta name="theme-color" content="#eaf1f8"><link rel="apple-touch-icon" sizes="512x512" href="Weights.jpg"><link rel="icon" type="image/jpeg" sizes="512x512" href="Weights.jpg">
 <title>Lift Tracker</title>
 <style>
-:root{--bg:#f6f5f2;--card:#fff;--ink:#1c1c1a;--mut:#6b6a66;--acc:#d9480f;--ln:#e4e2dc;--ok:#2b8a3e;
+:root{--bg:#eaf1f8;--card:#f7fafc;--ink:#132238;--mut:#61758d;--acc:#2563eb;--ln:#cfdae7;--ok:#0f766e;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161615;--card:#222221;--ink:#f1efe9;--mut:#9c9a93;--acc:#ff8c5a;--ln:#383835;--ok:#69db7c;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#161615;--card:#222221;--ink:#f1efe9;--mut:#9c9a93;--acc:#ff8c5a;--ln:#383835;--ok:#69db7c;color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1422;--card:#111d2e;--ink:#edf5ff;--mut:#91a6bd;--acc:#60a5fa;--ln:#26384d;--ok:#5eead4;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b1422;--card:#111d2e;--ink:#edf5ff;--mut:#91a6bd;--acc:#60a5fa;--ln:#26384d;--ok:#5eead4;color-scheme:dark}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif}
@@ -14,18 +13,17 @@ main{max-width:560px;margin:0 auto;padding:20px 16px 48px}
 h1{font-size:28px;margin:8px 0 4px}
 h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin:26px 0 8px}
 .sub{color:var(--mut);margin:0}
-a.row{display:flex;justify-content:space-between;align-items:center;background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:16px;margin-bottom:8px;color:inherit;text-decoration:none;font-weight:600}
+a.row{display:flex;justify-content:space-between;align-items:center;background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:16px;margin-bottom:8px;color:inherit;text-decoration:none;font-weight:600;box-shadow:0 4px 14px rgba(19,34,56,.04)}
 a.row span{color:var(--acc);font-variant-numeric:tabular-nums}
 .back{display:inline-block;color:var(--acc);text-decoration:none;font-weight:600;padding:8px 0}
 .tag{color:var(--mut);font-size:13px;text-transform:uppercase;letter-spacing:.08em}
 .big{display:flex;align-items:baseline;justify-content:center;gap:8px;margin:18px 0 6px}
-.big input{width:4.2ch;font:800 clamp(88px,32vw,150px)/1 system-ui,sans-serif;text-align:center;border:0;background:transparent;color:var(--ink);padding:0;outline:none;-moz-appearance:textfield;font-variant-numeric:tabular-nums}
+.big input{width:4.2ch;font:800 clamp(88px,32vw,150px)/1 system-ui,sans-serif;text-align:center;border:0;background:transparent;color:var(--acc);padding:0;outline:none;-moz-appearance:textfield;appearance:textfield;font-variant-numeric:tabular-nums;text-shadow:0 0 24px rgba(37,99,235,.12)}
 .big input::-webkit-inner-spin-button,.big input::-webkit-outer-spin-button{-webkit-appearance:none}
 .big small{font-size:22px;color:var(--mut);font-weight:600}
 .steps{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-button{font:700 22px system-ui,sans-serif;padding:16px;border-radius:14px;border:1px solid var(--ln);background:var(--card);color:var(--ink);cursor:pointer}
-button.p{background:var(--acc);border-color:var(--acc);color:#fff}
-button{touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;-webkit-appearance:none;appearance:none;min-height:64px}
+button{font:700 22px system-ui,sans-serif;padding:16px;border-radius:14px;border:1px solid var(--ln);background:var(--card);color:var(--ink);cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;-webkit-appearance:none;appearance:none;min-height:64px}
+button.p{background:var(--acc);border-color:var(--acc);color:#fff;box-shadow:0 8px 18px rgba(37,99,235,.16)}
 button:active{transform:scale(.98)}
 .big input,textarea{-webkit-appearance:none;appearance:none}
 .hint{text-align:center;color:var(--mut);margin:12px 0 0;min-height:1.4em}
@@ -37,6 +35,21 @@ th{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em
 tr:last-child td{border-bottom:0}
 .up{color:var(--ok)}.dn{color:var(--acc)}
 .ghost{font-size:15px;padding:10px 14px;margin-top:24px;width:100%}
+.home-head{display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:12px;text-align:center}
+.home-head h1{grid-column:2;margin:0;font-size:28px}
+.menu{grid-column:3;grid-row:1;position:relative;justify-self:end}
+.menu summary{list-style:none;width:44px;height:44px;min-height:44px;padding:10px;border:1px solid var(--ln);border-radius:12px;background:var(--card);cursor:pointer;touch-action:manipulation;box-shadow:0 4px 12px rgba(19,34,56,.06)}
+.menu summary svg{display:block;width:22px;height:22px}
+.menu summary::-webkit-details-marker{display:none}
+.menu-panel{position:absolute;z-index:10;right:0;top:52px;width:min(280px,calc(100vw - 32px));padding:12px;background:var(--card);border:1px solid var(--ln);border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.15);text-align:left}
+.menu-panel button{width:100%;min-height:48px;font-size:15px;padding:10px 12px}
+.menu-divider{height:1px;background:var(--ln);margin:9px 0}
+.menu-panel .export{margin-bottom:8px}
+.menu-panel .danger{color:#b42318;border-color:#b42318;background:var(--card)}
+.confirm-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.confirm-actions button{margin:0}
+.confirm-copy{margin:10px 0 0;color:var(--mut);font-size:14px}
+.reset-status{text-align:center;color:var(--mut);min-height:1.4em;margin:10px 0 0}
 </style></head><body><main id="app"></main>
 <script>
 const DAYS=[
@@ -62,17 +75,28 @@ function save(){touched=true;S.ts=Date.now();try{localStorage.setItem("lift",JSO
  clearTimeout(saveT);saveT=setTimeout(()=>{if(ref)ref.set(S).catch(()=>{})},300)}
 function fmt(d){const[y,m,dd]=d.split("-");return new Date(y,m-1,dd).toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"})}
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
-function home(){let h='<h1>Lift Tracker</h1><p class="sub">Tap an exercise. Beat last time.</p>';
+function home(){let h='<div class="home-head"><span></span><h1>Lift Tracker</h1><details class="menu" id="menu"><summary aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></summary><div class="menu-panel"><button type="button" class="export" id="exp">Export log as CSV</button><button type="button" class="danger" id="clear-data">Clear all data</button><div id="confirm-clear" hidden><p class="confirm-copy">Reset every weight and delete all history and notes?</p><div class="confirm-actions"><button type="button" id="cancel-clear">Cancel</button><button type="button" class="danger" id="confirm-clear-btn">Reset</button></div></div><div class="menu-divider"></div></div></details></div>'+'<p class="sub"></p>';
  DAYS.forEach(([d,l])=>{h+='<h2>'+d+'</h2>';l.forEach(([n])=>{const id=n.toLowerCase().replace(/[^a-z0-9]+/g,"-");h+='<a class="row" href="#'+id+'">'+esc(n)+'<span>'+S.w[id]+' lb</span></a>'});});
- h+='<button class="ghost" id="exp">Export log as CSV</button>';app.innerHTML=h;
- document.getElementById("exp").onclick=exportCsv}
+ h+='<p class="reset-status" id="reset-status"></p>';app.innerHTML=h;
+ document.getElementById("exp").onclick=exportCsv;
+ document.getElementById("clear-data").onclick=()=>{document.getElementById("confirm-clear").hidden=false};
+ document.getElementById("cancel-clear").onclick=()=>{document.getElementById("confirm-clear").hidden=true};
+ document.getElementById("confirm-clear-btn").onclick=clearAllData;
+ document.querySelectorAll("[data-design-link]").forEach(button=>button.onclick=()=>{const selected=button.dataset.designLink;location.search=selected==='current'?'':'?design='+selected})}
+function clearAllData(){try{localStorage.removeItem("lift")}catch(e){}
+ S={w:{},log:{},notes:{},ts:Date.now()};
+ EX.forEach(e=>{S.w[e.id]=e.w;S.log[e.id]=[{d:today(),w:e.w}]});
+ save();home();
+ document.getElementById("reset-status").textContent="All data reset to defaults."}
 function exportCsv(){let c="Exercise,Date,Weight (lbs)\n";EX.forEach(e=>(S.log[e.id]||[]).forEach(r=>c+='"'+e.n+'",'+r.d+","+r.w+"\n"));
  if(dl)dl.save({filename:"lift-log.csv",data:c}).catch(()=>{});else{const a=document.createElement("a");a.href="data:text/csv,"+encodeURIComponent(c);a.download="lift-log.csv";a.click()}}
 function setW(e,v){v=Math.max(0,Math.round(v*2)/2);const cur=S.w[e.id];if(v===cur||isNaN(v))return false;
  S.w[e.id]=v;(S.log[e.id]=S.log[e.id]||[]).push({d:today(),w:v});save();return true}
 function rowsHtml(e){const lg=S.log[e.id]||[];let rows="";for(let i=lg.length-1;i>=0;i--){const p=i>0?lg[i].w-lg[i-1].w:0;
   rows+='<tr><td>'+fmt(lg[i].d)+'</td><td><b>'+lg[i].w+'</b> lb</td><td class="'+(p>0?"up":p<0?"dn":"")+'">'+(i===0?"start":(p>0?"+":"")+p)+'</td></tr>'}return rows}
-function hintTxt(e){return 'Overload goal: try '+(S.w[e.id]+5)+' lb next session.'}
+function hintTxt(e){const lg=S.log[e.id]||[];if(lg.length<2)return "";
+ const latest=lg[lg.length-1],previous=lg[lg.length-2];const delta=latest.w-previous.w;if(delta===0)return "No weight change recorded yet";
+ const parts=latest.d.split("-");const changed=new Date(Number(parts[0]),Number(parts[1])-1,Number(parts[2]));const now=new Date();const todayMid=new Date(now.getFullYear(),now.getMonth(),now.getDate());const days=Math.max(0,Math.floor((todayMid-changed)/86400000));const unit=days===1?"day":"days";return (delta>0?"Last increase":"Last decrease")+": "+days+" "+unit+" ago"}
 function view(e){const rows=rowsHtml(e);
  app.innerHTML='<a class="back" href="#">← All exercises</a><div class="tag">'+e.d+' day</div><h1>'+esc(e.n)+'</h1>'
  +'<div class="big"><input id="w" type="number" inputmode="decimal" step="0.5" value="'+S.w[e.id]+'" aria-label="Weight in pounds"><small>lb</small></div>'
