@@ -1,5 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Lifts"><meta name="theme-color" content="#eaf1f8"><link rel="apple-touch-icon" sizes="512x512" href="Weights.jpg"><link rel="icon" type="image/jpeg" sizes="512x512" href="Weights.jpg">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-title" content="Lifts"><meta name="theme-color" content="#eaf1f8"><link rel="apple-touch-icon" sizes="512x512" href="Weights.jpg"><link rel="icon" type="image/jpeg" sizes="512x512" href="Weights.jpg">
 <title>Lift Tracker</title>
 <style>
 :root{--bg:#eaf1f8;--card:#f7fafc;--ink:#132238;--mut:#61758d;--acc:#2563eb;--ln:#cfdae7;--ok:#0f766e;
@@ -50,6 +52,25 @@ tr:last-child td{border-bottom:0}
 .confirm-actions button{margin:0}
 .confirm-copy{margin:10px 0 0;color:var(--mut);font-size:14px}
 .reset-status{text-align:center;color:var(--mut);min-height:1.4em;margin:10px 0 0}
+@media(max-width:600px){
+ main{width:100%;max-width:none;padding:12px 12px calc(40px + env(safe-area-inset-bottom,0px))}
+ .home-head{min-height:56px}
+ .home-head h1{font-size:30px}
+ h2{font-size:14px;margin-top:24px}
+ a.row{min-height:68px;padding:18px;font-size:17px;border-radius:16px}
+ .back{font-size:17px;padding:12px 0}
+ .tag{font-size:14px}
+ .big{margin:12px 0 10px}
+ .big input{width:4.1ch;font-size:clamp(112px,42vw,180px);line-height:1;min-height:180px}
+ .big small{font-size:24px}
+ .steps{gap:12px}
+ button{font-size:24px;min-height:72px;border-radius:16px}
+ textarea{font-size:16px;line-height:1.45;padding:14px;min-height:112px}
+ .hint{font-size:16px;margin-top:14px}
+ th,td{padding:14px 10px;font-size:15px}
+ .menu-panel{width:min(300px,calc(100vw - 24px))}
+ .menu-panel button{min-height:52px;font-size:16px}
+}
 </style></head><body><main id="app"></main>
 <script>
 const DAYS=[
